@@ -3,3 +3,4 @@ awk -f /public/group_share_data/fan_lab/suke/Epilepsy/VQSR/annovar/split_new.awk
 cat epilepsy_cohort.vcf |awk '{if($0 ~ /^#CH/){print}}' >epilepsy_cohort_head.txt
 cat epilepsy_cohort_head.txt GATK_Exon_filter_split.vcf >GATK_Exon_filter_split_head.vcf
 python genotype_stat_GATK.py GATK_Exon_filter_split_head.vcf > GATK_Exon_filter_split_head_stat.vcf  ## genotype_stat_GATK.py is provided as a separate file
+cat GATK_Exon_filter_split.vcf |awk -F '\t' '{for(a=10;a<=NF;a++){split($a,b,":");print b[1],"\n"}}' |sort |uniq -c >genotypes.stat
